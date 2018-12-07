@@ -5,6 +5,7 @@
 import time
 from odoo.tools import float_compare
 from odoo.tests.common import SavepointCase
+from odoo import fields
 
 
 class TestInvoiceStartEndDates(SavepointCase):
@@ -72,7 +73,7 @@ class TestInvoiceStartEndDates(SavepointCase):
                     }),
                 (0, 0, {
                     'product_id':
-                    self.env.ref('product.product_product_17').id,
+                    self.env.ref('product.product_product_5').id,
                     'name': 'HD IPBX',
                     'price_unit': 215.5,
                     'quantity': 1,
@@ -90,6 +91,8 @@ class TestInvoiceStartEndDates(SavepointCase):
         precision = self.env['decimal.precision'].precision_get('Account')
         for mline in invoice.move_id.line_ids:
             if mline.account_id == self.account_revenue:
-                amount = iline_res.pop((mline.start_date, mline.end_date))
+                amount = iline_res.pop(
+                    (fields.Date.to_string(mline.start_date),
+                     fields.Date.to_string(mline.end_date)))
                 self.assertEquals(float_compare(
                     amount, mline.credit, precision_digits=precision), 0)
