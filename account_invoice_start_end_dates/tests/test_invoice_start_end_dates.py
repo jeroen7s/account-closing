@@ -1,11 +1,11 @@
 # Copyright 2016 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-
 import time
-from odoo.tools import float_compare
-from odoo.tests.common import SavepointCase
+
 from odoo import fields
+from odoo.tests.common import SavepointCase
+from odoo.tools import float_compare
 
 
 class TestInvoiceStartEndDates(SavepointCase):
